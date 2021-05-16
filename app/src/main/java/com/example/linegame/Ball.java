@@ -1,4 +1,7 @@
 package com.example.linegame;
+import android.graphics.RectF;
+import java.util.Random;
+
 
 public class Ball{
     private RectF ballRect;

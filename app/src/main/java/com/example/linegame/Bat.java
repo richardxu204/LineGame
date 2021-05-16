@@ -1,4 +1,7 @@
 package com.example.linegame;
+import android.graphics.RectF;
+import java.util.Random;
+
 
 public class Bat {
     // RectF is an object that holds four coordinates - just what we need
@@ -50,5 +53,9 @@ public class Bat {
         // How fast is the mBat in pixels per second
         batSpeed = screenX;
         // Cover entire screen in 1 second
+    }
+
+    public RectF getRect(){
+        return batRect;
     }
 }
