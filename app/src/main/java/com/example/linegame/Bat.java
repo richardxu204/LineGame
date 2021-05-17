@@ -58,4 +58,30 @@ public class Bat {
     public RectF getRect(){
         return batRect;
     }
+
+    public void setMovementState(int state){
+        batMoving = state;
+    }
+
+    public void update(long fps){
+        if(batMoving == LEFT){
+            xCoord = xCoord - batSpeed / fps;
+        }
+
+        if(batMoving == RIGHT){
+            xCoord = xCoord + batSpeed / fps;
+        }
+
+        // Make sure it's not leaving screen
+        if(batRect.left < 0){
+            xCoord = 0;
+        }
+        if(batRect.right > screenX){
+            xCoord = screenX - (batRect.right - batRect.left);
+        }
+
+        // Update the Bat graphics
+        batRect.left = xCoord;
+        batRect.right = xCoord + batLength;
+    }
 }
