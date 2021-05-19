@@ -3,4 +3,4 @@
 Android Studio app
 
 Pong
-Currently borrowing sample file
+Rewriting code from scratch
