@@ -17,17 +17,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+
     public void startGame(View v){
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        pongGame = new PongGame(this, size.x, size.y);
-
-
-        //Intent intent = new Intent(this, PongGame.class);
+        Intent intent = new Intent(this, PongGame.class);
         //System.out.println("ye boi");
-        //startActivity(intent);
+        startActivity(intent);
     }
 
 }
