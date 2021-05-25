@@ -39,6 +39,11 @@ public class Ball {
         ballXVel = -ballXVel;
     }
 
+    public void increaseVel(){
+        ballXVel = ballXVel + ballXVel / 10;
+        ballYVel = ballYVel + ballYVel / 10;
+    }
+
     public void setRandomVel(){
         Random generator = new Random();
         int answer = generator.nextInt(2);

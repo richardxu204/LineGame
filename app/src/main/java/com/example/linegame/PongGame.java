@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.Display;
 
 public class PongGame extends AppCompatActivity {
-    PongGame pongView;
+    PongView pongView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
