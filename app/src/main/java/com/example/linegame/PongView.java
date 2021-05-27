@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.media.AudioAttributes;
@@ -155,7 +156,7 @@ public class PongView extends SurfaceView implements Runnable{
         if(RectF.intersects(pongPad.getRect(), pongBall.getRect())){
             pongBall.setRandomVel();
             pongBall.reverseYVelocity();
-            pongBall.bounceY();
+            pongBall.bounceY(pongPad.getRect().top - 2);
             pongScore++;
             pongBall.increaseVel();
 
@@ -172,7 +173,47 @@ public class PongView extends SurfaceView implements Runnable{
                 setupAndRestart();
             }
         }
+        if(pongBall.getRect().top < 0){
+            pongBall.reverseYVelocity();
+            pongBall.bounceY(12);
 
+            pongSounds.play(beep2ID, 1, 1, 0, 0, 1);
+        }
+        if(pongBall.getRect().left < 0) {
+            pongBall.reverseXVelocity();
+            pongBall.bounceX(screenX - 22);
+            pongSounds.play(beep3ID, 1, 1, 0, 0, 1);
+        }
+
+    }
+
+    public void draw(){
+        if (pongHolder.getSurface().isValid()){
+            pongCanvas = pongHolder.lockCanvas();
+            pongCanvas.drawColor(Color.argb(255, 120, 197, 87));
+            pongPaint.setColor(Color.argb(255, 255, 255, 255));
+            pongCanvas.drawRect(pongPad.getRect(), pongPaint);
+            pongCanvas.drawRect(pongBall.getRect(), pongPaint);
+            pongPaint.setColor(Color.argb( 255, 255, 255, 255));
+            pongPaint.setTextSize(40);
+            pongCanvas.drawText("Score: " + pongScore + " Lives: " + pongLives, 10, 50, pongPaint);
+            pongHolder.unlockCanvasAndPost(pongCanvas);
+        }
+    }
+
+    public void pause(){
+        playStatus = false;
+        try {
+            gameThread.join();
+        }
+        catch (InterruptedException e){
+            Log.e("Error: ", "joining thread");
+        }
+    }
+    public void resume(){
+        playStatus = true;
+        gameThread = new Thread(this);
+        gameThread.start();
     }
 
 }
