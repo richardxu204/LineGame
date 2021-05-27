@@ -8,4 +8,4 @@ Ball class slightly modified
 Paddle class rewritten
 Pong view screen still has issues
 Basic class restructuring
- 
+Game runs with interface problems
