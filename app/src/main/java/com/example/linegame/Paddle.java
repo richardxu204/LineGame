@@ -10,9 +10,9 @@ public class Paddle {
     private float padX;
     private float padY;
     private float padSpeed;
-    private final int STOPPED = 0;
-    private final int LEFT = 1;
-    private final int RIGHT = 2;
+    public final int STOPPED = 0;
+    public final int LEFT = 1;
+    public final int RIGHT = 2;
     private int padStatus = STOPPED;
     private int screenX;
     private int screenY;

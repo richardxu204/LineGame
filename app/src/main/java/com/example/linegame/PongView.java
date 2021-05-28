@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -127,7 +128,6 @@ public class PongView extends SurfaceView implements Runnable{
             long startFrameTime = System.currentTimeMillis();
 
             // Update the frame
-            // Update the frame
             if(!playPaused){
                 update();
             }
@@ -154,9 +154,9 @@ public class PongView extends SurfaceView implements Runnable{
         pongBall.update(pongFPS);
 
         if(RectF.intersects(pongPad.getRect(), pongBall.getRect())){
-            pongBall.setRandomVel();
+            //pongBall.setRandomVel();
             pongBall.reverseYVelocity();
-            pongBall.bounceY(pongPad.getRect().top - 2);
+            //pongBall.bounceY(pongPad.getRect().top - 2);
             pongScore++;
             pongBall.increaseVel();
 
@@ -164,7 +164,7 @@ public class PongView extends SurfaceView implements Runnable{
         }
         if(pongBall.getRect().bottom > screenY){
             pongBall.reverseYVelocity();
-            pongBall.bounceY(screenY - 2);
+            //pongBall.bounceY(screenY - 2);
 
             pongLives--;
             pongSounds.play(loseLifeID, 1, 1, 0, 0, 1);
@@ -175,13 +175,18 @@ public class PongView extends SurfaceView implements Runnable{
         }
         if(pongBall.getRect().top < 0){
             pongBall.reverseYVelocity();
-            pongBall.bounceY(12);
+            //pongBall.bounceY(12);
 
             pongSounds.play(beep2ID, 1, 1, 0, 0, 1);
         }
         if(pongBall.getRect().left < 0) {
             pongBall.reverseXVelocity();
-            pongBall.bounceX(screenX - 22);
+            //pongBall.bounceX(2);
+            pongSounds.play(beep3ID, 1, 1, 0, 0, 1);
+        }
+        if(pongBall.getRect().right > screenX){
+            pongBall.reverseXVelocity();
+            //pongBall.bounceX(screenX - 22);
             pongSounds.play(beep3ID, 1, 1, 0, 0, 1);
         }
 
@@ -216,4 +221,23 @@ public class PongView extends SurfaceView implements Runnable{
         gameThread.start();
     }
 
+    public boolean onTouchEvent(MotionEvent touch){
+        switch(touch.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN:
+                playPaused = false;
+
+                if (touch.getX() > screenX / 2) {
+                    pongPad.setMovement(pongPad.RIGHT);
+                } else {
+                    pongPad.setMovement(pongPad.LEFT);
+                }
+
+                break;
+            case MotionEvent.ACTION_UP:
+                pongPad.setMovement(pongPad.STOPPED);
+                break;
+        }
+        return true;
+
+    }
 }

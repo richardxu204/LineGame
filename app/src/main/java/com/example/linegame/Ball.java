@@ -8,6 +8,7 @@ public class Ball {
     private RectF ballRect;
     private float ballXVel;
     private float ballYVel;
+    private float ballInitVel;
     private float ballSize;
 
     //Ball constructor
@@ -15,10 +16,12 @@ public class Ball {
         ballSize = screenX / 100;
         ballXVel = screenY / 4;
         ballYVel = ballXVel;
+        ballInitVel = ballXVel;
         ballRect = new RectF();
     }
 
     public RectF getRect(){
+
         return ballRect;
     }
 
@@ -26,7 +29,7 @@ public class Ball {
         ballRect.left = ballRect.left + (ballXVel / fps);
         ballRect.top = ballRect.top + (ballYVel / fps);
         ballRect.right = ballRect.left + ballSize;
-        ballRect.left = ballRect.top - ballSize;
+        ballRect.bottom = ballRect.top - ballSize;
     }
 
     // Reverse the vertical heading
@@ -67,7 +70,9 @@ public class Ball {
         ballRect.left = x / 2;
         ballRect.top = y - 20;
         ballRect.right = x / 2 + ballSize;
-        ballRect.right = y - 20 - ballSize;
+        ballRect.bottom = y - 20 - ballSize;
+        ballXVel = ballInitVel;
+        ballYVel = ballXVel;
     }
 
 }
