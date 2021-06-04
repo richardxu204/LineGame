@@ -9,4 +9,4 @@ Paddle class rewritten
 Pong view screen still has issues
 Basic class restructuring
 Game runs with interface problems
-Reworked ball generation
+Reworked ball generation with arraylist
