@@ -1,4 +1,4 @@
-# LineLine Game #
+# Line Game #
 
 Android Studio app
 
